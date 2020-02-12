@@ -4,14 +4,23 @@ import axios from 'axios';
 import UserCard from "./components/UserCard";
 import FollowerCard from "./components/FollowersCard";
 import UserForm from './components/UserForm';
-
+import MyFilteringComponent from './components/MyFilteringComponent';
 
 class App extends React.Component {
-  state = {
-    user: [],
-    followers: []
-  };
-
+  constructor(){
+    super();
+    this.state={
+      user: [],
+    followers: [],
+      search: ''
+    }
+  }
+ 
+  // state = {
+  //   user: [],
+  //   followers: [],
+    
+  // };
   componentDidMount() {
     axios
       .get("https://api.github.com/users/josefeth")
@@ -51,19 +60,44 @@ class App extends React.Component {
     } else return;
   }
 
-
+  // handleOnChange = event => {
+  //   this.setState({ searchValue: event.target.value });
+  //   };
+  //   handleSearch = () => {
+      
+  //   }
+   updateSearch(event){
+     console.log('yo')
+     this.setState({search: event.target.value.substr(0,20)})
+   }
   render() {
+    let filteredUser = this.state.user.filter(
+      (user) =>{
+        return user.login.indexOf(this.state.search) !== -1;
+      }
+    )
     return (
       <div className="App">
+        search bar
+          <input
+          // name="text"
+          type="text"
+          
+          // onChange={event => this.handleOnChange(event)}
+          value={this.state.search}
+          onChange={this.updateSearch.bind(this)}/>
+          
+{/* 
         <UserForm getUser={this.getUser} />
         {this.state.repos}<br></br>
         {this.state.login}<br></br>
         {this.state.bio}<br></br>
         {this.state.avatar_url}<br></br>
         {this.state.location}<br></br>
-       
+        <MyFilteringComponent /> */}
+
         <h1>GitHub User</h1>
-        {this.state.user.map(item => (
+        {filteredUser.map(item => (
           <UserCard
             key={item.id}
             name={item.name}
