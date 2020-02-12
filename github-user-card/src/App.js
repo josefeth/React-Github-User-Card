@@ -87,14 +87,14 @@ class App extends React.Component {
           value={this.state.search}
           onChange={this.updateSearch.bind(this)}/>
           
-{/* 
+
         <UserForm getUser={this.getUser} />
         {this.state.repos}<br></br>
         {this.state.login}<br></br>
         {this.state.bio}<br></br>
         {this.state.avatar_url}<br></br>
         {this.state.location}<br></br>
-        <MyFilteringComponent /> */}
+        {/* <MyFilteringComponent />  */}
 
         <h1>GitHub User</h1>
         {filteredUser.map(item => (
